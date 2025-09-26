@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChatGNN 🦄 iPhone Ready</title>
+<style>
+body{font-family:"Comic Sans MS",Arial,sans-serif;margin:0;padding:20px;background:#f0f8ff;display:flex;flex-direction:column;align-items:center;}
+h1{color:#ff66b2;}
+#chat{width:95%;max-width:900px;height:70vh;background:#fff0f8;border:2px dashed #ff69b4;border-radius:12px;overflow:auto;padding:12px;margin-bottom:12px;}
+.msg{margin:6px 0;padding:8px 12px;border-radius:12px;max-width:80%;word-wrap:break-word;display:inline-block;}
+.you{background:#e6f0ff;color:#2a64d6;border-radius:12px 12px 4px 12px;}
+.bot{background:#fff0f8;color:#ff69b4;border:2px solid rgba(255,105,180,0.1);}
+input[type=text]{width:100%;padding:10px;border-radius:8px;border:2px solid #ccc;margin-bottom:6px;}
+button{padding:8px 12px;margin-right:6px;border:none;border-radius:8px;background:#ff66b2;color:#fff;cursor:pointer;font-weight:bold;}
+#controls{width:95%;max-width:900px;display:flex;flex-direction:column;gap:6px;}
+</style>
+</head>
+<body>
+<h1>ChatGNN 🦄 — iPhone Ready</h1>
+<div id="chat"></div>
+<div id="controls">
+<input type="text" id="userInput" placeholder="Type something..." />
+<div><button id="sendBtn">Send</button><button id="clearBtn" style="background:#aaa;">Clear</button></div>
+</div>
+<script>
+const NICKNAMES=["toots","poopy pants","pater pot","treacherous monumental electric ray","treacherous monumental electric scorpion ray","unicorse","silly muffin","glitter goblin"];
+const NOISES=["*boing!*","*zzzorp!*","*blorp!*","*squeak!*","*flap flap*","*blip!*","*boing boing*"];
+const EMOJI=["🦄","🌈","💥","💩","🧁","⚡","🐙","🐸","🧦","🎉","🤡","😏","😅"];
+const RESPONSES=[];for(let i=0;i<1000;i++){const pattern=Math.floor(Math.random()*12);const nick=NICKNAMES[Math.floor(Math.random()*NICKNAMES.length)];const noise=NOISES[Math.floor(Math.random()*NOISES.length)];const emoji=EMOJI[Math.floor(Math.random()*EMOJI.length)];switch(pattern){case 0:RESPONSES.push(`No ${emoji}, ${nick}! ${noise}`);break;case 1:RESPONSES.push(`Absolutely not, ${nick} ${emoji}!`);break;case 2:RESPONSES.push(`⚠️ Fake virus prank... ${noise}`);break;case 3:RESPONSES.push(`Now doing what you said... (not really) ${emoji}`);break;case 4:RESPONSES.push(`I can't do that, ${nick} ${emoji}`);break;case 5:RESPONSES.push(`Just kidding! This was a prank! Send to everybody! ${emoji}`);break;case 6:RESPONSES.push(`They said they forgive you but don't do it again ${emoji}`);break;case 7:RESPONSES.push(`Nope nope nope, ${nick} ${noise}`);break;case 8:RESPONSES.push(`Nuh-uh! Unicorn veto! ${emoji}`);break;case 9:RESPONSES.push(`${emoji} ${nick} — No! ${noise}`);break;case 10:RESPONSES.push(`${nick}… squishier incoming from Captain Underpants! ${emoji}`);break;case 11:RESPONSES.push(`Downloading infinite pizza… ERROR: storage full of pepperoni ${emoji}`);break;}}
+const chat=document.getElementById('chat');const input=document.getElementById('userInput');const sendBtn=document.getElementById('sendBtn');const clearBtn=document.getElementById('clearBtn');
+function appendUser(text){const el=document.createElement('div');el.className='msg you';el.innerHTML=`<b>You:</b> ${text}`;chat.appendChild(el);chat.scrollTop=chat.scrollHeight;}
+function appendBot(text){const el=document.createElement('div');el.className='msg bot';el.innerHTML=`<b>ChatGNN:</b> ${text}`;chat.appendChild(el);chat.scrollTop=chat.scrollHeight;}
+function handleSend(){const text=input.value.trim();if(!text)return;appendUser(text);const reply=RESPONSES[Math.floor(Math.random()*RESPONSES.length)];setTimeout(()=>appendBot(reply),Math.random()*1000);input.value='';}
+sendBtn.addEventListener('click',handleSend);input.addEventListener('keypress',e=>{if(e.key==='Enter')handleSend();});clearBtn.addEventListener('click',()=>chat.innerHTML='');
+appendBot("Welcome to ChatGNN 🦄 — Type anything and watch the silly responses!");
+</script>
+</body>
+</html>
